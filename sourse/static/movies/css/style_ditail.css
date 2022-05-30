@@ -1,0 +1,168 @@
+
+h4{
+    margin: 10px 0;
+    display: inline-block;
+}
+.container{
+   margin: 0 auto;
+   max-width: 1200px;
+}
+@media (max-width:1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
+@media (max-width:992px) {
+    .container{
+        max-width: 750px;
+    }
+}
+@media (max-width:767px) {
+    .container{
+        max-width: none;
+    }
+}
+
+
+.context{
+    width: 40%;
+    margin-left: 100px;
+}
+.info span{
+    margin-left: 10px;
+}
+.info h4{
+    margin: 3px 0;
+    display: inline-block;
+}
+.poster_ditail{
+    width: 40%;
+}
+.poster_ditail img{
+    width: 100%;
+}
+.shots{
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+
+}
+
+.shot{
+    width: 250px;
+    height: 150px;
+    margin-left: 10px;
+    overflow: hidden;
+    role:img;
+}
+.shot:first-child{
+    margin-left: 0px;
+}
+.movie_shot{
+    height: 150px;
+}
+.rating_and_shots h3{
+
+    display: inline;
+}
+.show_review{
+    background-color: #d0cfcf;
+    padding: 10px;
+}
+.review{
+    margin-top: 20px;
+    padding: 10px;
+    border: #100E19 1px solid;
+    box-shadow: 0px 0px 10px black;
+}
+.review:first-child{
+    margin-top: 0;
+}
+.review-answer{
+    margin-top: 10px;
+    padding: 10px;
+    border: #100E19 1px solid;
+    box-shadow: 0px 0px 5px black;
+}
+.user-review-box input{
+    height: 100px;
+}
+.actors p{
+    font-size: 15px;
+    margin-bottom: 0;
+}
+.actors span{
+    font-size: 16px;
+
+}
+.actors span::after{
+    content: ', ';
+}
+.actors span:last-child:after{
+    content: '.';
+}
+.review-answer-link{
+    color: #100E19;
+    text-decoration: none;
+    border: 1px solid #000;
+    padding: 5px;
+}
+.reviewer{
+    margin: 0;
+}
+
+ul.stars li {
+    display: inline-block;
+}
+
+ul.stars li a span {
+    font-size: 0.7em;
+    color: #6a6c6d;
+    margin: 0 0.2em;
+}
+
+ul.stars li a span:hover {
+    opacity: 0.8;
+}
+
+span.product-new-top {
+    background: #414b52;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    padding: 0.3em 1.2em;
+    color: #fff;
+}
+
+.rating {
+  overflow: hidden;
+  vertical-align: bottom;
+  display: inline-block;
+  width: 155px;
+  height: 30px;
+}
+
+.rating > input {
+  opacity: 0;
+  margin-right: -100%;
+}
+
+.rating > label {
+  position: relative;
+  display: block;
+  float: right;
+  background: url('../imgs/staroff.png');
+  background-size: 30px 30px;
+}
+
+.rating > label:before {
+  display: block;
+  opacity: 0;
+  content: '';
+  width: 30px;
+  height: 30px;
+  background: url('../imgs/staron.png');
+  background-size: 30px 30px;
+  transition: opacity 0.2s linear;
+}
+
+.rating > label:hover:before,  .rating > label:hover ~ label:before,  .rating:not(:hover) > :checked ~ label:before { opacity: 1; }

@@ -1,0 +1,113 @@
+{% extends 'movies/base.html' %}
+
+
+
+{% block section %}
+
+        <section class="body flex">
+            <div class="poster_ditail"><img src="{{ movie.poster.url }}" alt="" class="img">
+                <div class="info">
+                    <ul>
+                        <li><h4>Страна:</h4>  <span>{{ movie.country }}</span></li>
+                        <li><h4>Год выпуска:</h4> <span>{{ movie.year }}</span> г.</li>
+                        <li><h4>Бюджет:</h4> <span>{{ movie.budget }}</span><h4>$</h4></li>
+                        <li><h4>Сборы в США:</h4><span>{{ movie.fees_in_usa }}</span><h4>$</h4></li>
+                        <li><h4>Сборы в Мире:</h4> <span>{{ movie.fees_in_world }}</span><h4>$</h4></li>
+                        <li><h4>Рейтинг</h4>
+                            <form action="{% url 'add_rating' %}" method="post" name="rating">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ movie.id }}" name="movie">
+                                <span class="rating">
+                                    {% for k, v in star_form.fields.star.choices %}
+                                        <input type="radio" id="rating{{ v }}" value="{{ v }}" name="star">
+                                        <label for="rating{{ v }}">{{ k }}</label>
+                                    {% endfor %}
+                                </span>
+                                <span class="editContent">4.0</span>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="context">
+                <div class="title"><h1>{{ movie.title }}</h1><h5></h5></div>
+                 <div class="actors"><h3>В главных ролях</h3>
+                    <p>{% for actor in movie.actors.all %}
+                        <a href="{{ actor.get_absolute_url }}"><span>{{ actor.name }}</span></a>
+
+                    {% endfor %}
+                    </p>
+                </div>
+                <div class="slogan">
+                    <h3>Слоган</h3>
+                    <span>{{ movie.tagline }}</span>
+                </div>
+                <div class="description">
+                    <h3>Описание</h3>
+                    <span>{{ movie.description|safe }}</span>
+                </div>
+
+                </div>
+        </section>
+
+        <section class="section">
+            <div class="rating_and_shots">
+                <h3>Кыдры из фильма</h3>
+                <div class="shots">
+                    {% for image in movie.movieshots_set.all %}
+                         <div class="shot"><img src="{{ image.shot.url }}" alt="{{ image.description }}" class="movie_shot"></div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="comments">
+                <h4 id="review">Оставить отзыв:</h4>
+                <div class="create_review">
+                    <form action="{% url 'add_review' movie.id %}" method="post" id="formReview">
+                        {% csrf_token %}
+                        <input type="hidden" name = 'parent' id="contactparent" value="">
+                        Имя
+                        <div class="user-name"><input type="text" name="name"></div>
+                        Email
+                        <div class="user-email"><input type="email"name="email"></div>
+                        Коментарий
+                        <div class="user-review" ><textarea name="text" rows="4" cols="50" id="contactcontext" ></textarea>  </div>
+                        <button>Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <h4>Отзывы:</h4><span> ({{ movie.reviews_set.count }})</span>
+            <div class="show_review">
+                {% for review in movie.get_review %}
+
+
+
+                <div class="review">
+                <p class="reviewer"><b>{{ review.name }} ({{ review.email }})</b></p>
+                <hr>
+                <span>{{ review.text }}</span>
+                <hr>
+                <a href="#review" class="review-answer-link" onclick="addReview('{{ review.name }}','{{ review.id }}')">Ответить</a>
+                 {% for rew in review.reviews_set.all %}
+                    <div class="review-answer">
+                    <p class="reviewer"><b>{{ rew.name }} ({{ rew.email }})</b></p>
+                    <hr>
+                    <span>{{ rew.text }}</span>
+                    <hr>
+                    </div>
+
+                {% endfor %}
+                </div>
+                {% endfor %}
+
+            </div>
+        </section>
+
+    <script>
+    function addReview(name, id){
+        document.getElementById("contactparent").value = id;
+        document.getElementById("contactcontext").value = `@${name},`
+    }
+    </script>
+{% endblock section %}

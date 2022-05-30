@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+{% load template_tag %}
+
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{%  static 'movies/css/style.css' %}">
+
+    <link rel="stylesheet" href="{%  static 'movies/css/style_ditail.css' %}">
+
+
+    {% block css %}
+
+    {% endblock css %}
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <header class="flex">
+            <div class="logo">
+                <a href="{% url 'home' %}">LOGO</a>
+            </div>
+            {% block header %}
+                <div class="nav">
+                    <ul class="flex">
+                        {% get_categories as categories %}
+                        {% for category in categories %}
+                            <li class="nav-item"><a href="#">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            {% endblock %}
+
+        </header>
+        
+        {% block section %}
+        
+        {% endblock %}
+
+</div>
+<script>// Add star rating
+const rating = document.querySelector('form[name=rating]');
+
+rating.addEventListener("change", function (e) {
+    // Получаем данные из формы
+    let data = new FormData(this);
+    fetch(`${this.action}`, {
+        method: 'POST',
+        body: data
+    })
+        .then(response => alert("Рейтинг установлен"))
+        .catch(error => alert("Ошибка"))
+});</script>
+</body>
+</html>

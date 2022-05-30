@@ -1,0 +1,37 @@
+{% extends 'movies/base.html' %}
+{% load template_tag %}
+
+    {% block css %}
+        <link rel="stylesheet" href="movies/css/style_actor_detail.css">
+    {% endblock css %}
+{% block section %}
+
+
+<section class="body flex">
+            <div class="photo"><img src="{{ object.photo.url }}" alt="" class="img"></div>
+            <div class="context">
+                <div class="title"><h1>{{ object.name }}</h1><h5></h5></div>
+
+
+                <div class="movies"><h3>Фильмография</h3>
+                    {% get_movie actor=object.pk %}
+                </div>
+
+
+                <div class="description">
+                    <h3>Описание</h3>
+                    <span>{{ object.description }}</span>
+                </div>
+                <div class="info">
+                    <h4>Возраст:  </h4><span>{{ object.get_age }}</span><br>
+                    <h4>Дата рождения: </h4><span>{{ object.age }}</span><br>
+                    {% if actor.date_of_death is not null %}
+                        <h4>Дата смерти: </h4><span>{{ object.date_of_death }}</span><br>
+                    {% endif %}
+                </div>
+                
+                </div>
+                
+        </section>
+
+{% endblock %}

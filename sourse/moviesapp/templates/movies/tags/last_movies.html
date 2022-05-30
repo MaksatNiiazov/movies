@@ -1,0 +1,8 @@
+<div class="last_added">
+    <ul>
+        <h4>Последние добавленные:</h4>
+        {% for movie in last_movies %}
+                    <li><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

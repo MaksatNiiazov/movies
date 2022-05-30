@@ -1,0 +1,5 @@
+<p>
+{% for movie in movies %}
+    <span><a href="{{ movie.get_absolute_url }}">{{ movie.title }}</a></span>,
+{% endfor %}
+</p>

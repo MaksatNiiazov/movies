@@ -1,0 +1,68 @@
+{% extends 'movies/base.html' %}
+{% load template_tag %}
+{% block section %}
+
+<div class="content flex">
+            <div class="sidebar">
+                <div class="search-bar">
+                    <h3 class="sear-head editContent">Поиск фильма</h3>
+                    <form action="{% url 'search' %}" method="get" class="editContent">
+                        <input type="search" placeholder="Введите название..." name="q" class="form-control" required="">
+                        <button type="submit" class="btn1 btn">
+                            <span class="fa fa-search" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <form action="{% url 'filter' %}" method='get'>
+                    <div class="categories">
+                        <ul>
+                        <h4>Жанры:</h4>
+                            {% for genre in view.get_genres %}
+                                <li><input type="checkbox" name="genre" value="{{ genre.id }}"><span>{{ genre.name }}</span></li>
+
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="years">
+                        <ul>
+                        <h4>Года:</h4>
+                            {% for movie in view.get_years %}
+                                <li><input type="checkbox" name="year" value="{{ movie.year }}"><span>{{ movie.year }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                        <button type="submit">Найти</button>
+                </form>
+                <div class="rating">
+                    <ul>
+                        <h4>Рейтинг:</h4>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+                {% get_last_movies count=5 %}
+            </div>
+    <section class="cards-section flex">
+        {% for movie in object_list %}
+        <div class="card">
+            <div class="card-img"><img src="{{ movie.poster.url }}" alt="" class="poster"></div>
+
+            <a href="{{ movie.get_absolute_url }}"> <div class="card-title">{{ movie.title }}</div></a>
+
+        </div>
+        {% endfor %}
+     </section>
+</div>
+
+<div>
+{% include 'movies/include/pagination.html' %}
+</div>
+{% endblock section %}
+
+
+
